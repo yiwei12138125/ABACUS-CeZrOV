@@ -1,0 +1,55 @@
+INPUT_PARAMETERS
+suffix                  DOS       # output directory suffix
+nspin                   2          # 1: non-spin; 2: collinear; 4: SOC
+symmetry                0          # 0: off; 1: on
+esolver_type            ksdft      # ksdft, ofdft, tddft, etc.
+dft_functional          pbe        # must match pseudopotential: lda, pbe, scan, etc.
+ks_solver               genelpa    # solver for KSDFT with LCAO
+vdw_method              none       # dispersion correction: none, d3_bj
+pseudo_dir              .           # path to pseudopotentials
+orbital_dir             .           # path to numerical orbitals
+
+# --- Iteration Control ---
+calculation             scf	   # scf, relax, cell-relax, md
+ecutwfc                 100        # plane-wave cutoff (Ry)
+scf_thr                 1e-7       # SCF convergence threshold (Ry)
+scf_nmax                500        # max SCF steps
+relax_nmax              400        # max relaxation steps
+relax_method            bfgs_trad  # geometry optimization: cg, bfgs, fire, etc.
+force_thr_ev            0.03       # force convergence (eV/A)
+stress_thr              2          # stress convergence (kbar)
+
+# --- Basis & k-point ---
+basis_type              lcao       # lcao or pw
+#kspacing                0.11       # auto k-mesh from spacing (Ry^-1), overrides KPT
+#gamma_only             1         # use Gamma-only for small systems
+
+# --- Smearing ---
+smearing_method         cold       # cold, mp, gaussian; cold recommended for metals
+smearing_sigma          0.01       # smearing width in Ry (0.008 for mp, 0.001–0.002 for gaussian)
+
+# --- Charge Mixing ---
+mixing_type             broyden    # broyden, pulay
+mixing_beta             0.2        # mixing amplitude (0.05–0.4 for metals)
+mixing_gg0              1.0        # preconditioner for metals
+mixing_ndim             25         # history length for mixing
+mixing_dftu             1
+mixing_angle            1.0
+# --- Output & Calculation ---
+cal_force               1          # calculate atomic forces
+cal_stress              1          # calculate stress tensor
+out_stru                1          # output final structure
+out_chg                 1          # do not output charge density
+out_bandgap             1          # output bandgap information
+out_dos                  2
+# out_mul                1         # Mulliken population analysis (optional)
+
+# --- DFT+U Settings ---
+dft_plus_u              1
+onsite_radius           3.0        # radius for localized orbitals (Ry)
+orbital_corr            -1  3  -1      # apply U to atom type 3, all orbitals
+hubbard_u               0.0  4.5  0.0   # Hubbard U values (eV)
+#mixing_restart          1e-3       # DM mixing restart threshold
+# mixing_dmr              1          # enable DM restart
+
+null
